@@ -1,0 +1,79 @@
+<!doctype html>
+<html data-style="storybook" data-palette="heritage" data-density="default">
+<head>
+  <meta charset="utf-8" />
+  <title>UK Facts Kiosk</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Bricolage+Grotesque:wght@600;700;800&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <!-- TWEAK DEFAULTS (kept inline so the host can rewrite on disk) -->
+  <script>
+    window.TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "style": "poster",
+      "palette": "primary",
+      "mascot": true,
+      "density": "cozy"
+    }/*EDITMODE-END*/;
+  </script>
+
+  <!-- data -->
+  <script src="data.js"></script>
+
+  <!-- components -->
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel" src="Pip.jsx"></script>
+  <script type="text/babel" src="illustrations.jsx"></script>
+  <script src="uk-paths.js"></script>
+  <script type="text/babel" src="UKMap.jsx"></script>
+  <script type="text/babel" src="HomeScreen.jsx"></script>
+  <script type="text/babel" src="ExplainerScreen.jsx"></script>
+  <script type="text/babel" src="FactsScreen.jsx"></script>
+  <script type="text/babel" src="QuizScreen.jsx"></script>
+  <script type="text/babel" src="TimelineScreen.jsx"></script>
+  <script type="text/babel" src="App.jsx"></script>
+
+  <style>
+    /* responsive scale of #stage to fit viewport while keeping 1366×1024 base */
+    #wrap {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #1a1a1a;
+    }
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <div id="stage">
+      <div id="root"></div>
+    </div>
+  </div>
+
+  <script type="text/babel">
+    function fitStage() {
+      const stage = document.getElementById("stage");
+      const W = 1366, H = 1024;
+      const sx = window.innerWidth / W;
+      const sy = window.innerHeight / H;
+      const s = Math.min(sx, sy);
+      stage.style.transform = `scale(${s})`;
+    }
+    window.addEventListener("resize", fitStage);
+    fitStage();
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+</html>
